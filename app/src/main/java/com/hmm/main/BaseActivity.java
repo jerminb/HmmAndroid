@@ -1,16 +1,15 @@
 package com.hmm.main;
 
-import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.hmm.R;
+import com.getbase.floatingactionbutton.FloatingActionButton;
 
-public class LoginActivity extends Activity {
+public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
     }
 }
