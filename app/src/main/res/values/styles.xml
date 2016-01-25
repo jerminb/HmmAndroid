@@ -1,9 +1,7 @@
 <resources>
 
-    <style name="MyCustomTheme" parent="android:Theme.Holo">
-        <!--<item name="android:actionBarStyle">@style/MyActionBarTheme</item>
-        <item name="android:windowBackground">@android:color/white</item>-->
-
+    <style name="MyCustomTheme" parent="android:Theme.Holo.Light">
+        <!--<item name="android:actionBarStyle">@style/MyActionBarTheme</item>-->
     </style>
 
     <style name="MyActionBarTheme" parent="@style/Theme.AppCompat">
