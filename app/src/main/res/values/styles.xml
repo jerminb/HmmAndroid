@@ -1,8 +1,8 @@
 <resources>
 
-    <style name="MyCustomTheme">
-        <item name="android:actionBarStyle">@style/MyActionBarTheme</item>
-        <item name="android:windowBackground">@android:color/white</item>
+    <style name="MyCustomTheme" parent="android:Theme.Holo">
+        <!--<item name="android:actionBarStyle">@style/MyActionBarTheme</item>
+        <item name="android:windowBackground">@android:color/white</item>-->
 
     </style>
 
@@ -10,7 +10,7 @@
         <item name="android:background">#fab461</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
-    
+
 
 
 </resources>
