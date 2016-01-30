@@ -3,6 +3,7 @@ package com.hmm.main;
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -10,6 +11,7 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.hmm.DI.ServiceModule_ProvideUserRemoteServiceFactory;
 import com.hmm.R;
 import com.hmm.application.HmmApp;
+import com.hmm.enums.MenuEnum;
 import com.hmm.models.User;
 import com.hmm.models.mission.CoopMission;
 import com.hmm.models.mission.Mission;
@@ -23,13 +25,23 @@ import com.hmm.views.adapters.FeedViewListAdapter;
 
 import java.util.ArrayList;
 
-public class HomeActivity extends Activity {
+public class HomeActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        populateList();
+    }
 
+    @Override
+    protected void initView(MenuEnum currentMenu) {
+        currentMenu = MenuEnum.HOME;
+        super.initView(currentMenu);
+
+        viewContainer.addView(View.inflate(getApplicationContext(), R.layout.activity_home, null));
+    }
+
+    private void populateList() {
         ServiceUser user = new ServiceUser(new User());
 
         ((HmmApp)getApplication()).getServiceComponent().inject(user);
@@ -45,8 +57,7 @@ public class HomeActivity extends Activity {
                 this,
                 arrayOfFeeds);
         ListView myList=
-                (ListView) findViewById(R.id.feedListView);
+                (ListView) viewContainer.findViewById(R.id.feedListView);
         myList.setAdapter(myAdapter);
-
     }
 }

@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="MyCustomTheme" parent="android:Theme.Holo.Light">
+    <style name="MyCustomTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!--<item name="android:actionBarStyle">@style/MyActionBarTheme</item>-->
     </style>
 
