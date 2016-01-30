@@ -67,14 +67,14 @@ public class FeedActivity extends AppCompatActivity {
 
             @Override
             public int getCount() {
-                return 4;
+                return 1;
             }
 
             @Override
             public CharSequence getPageTitle(int position) {
                 switch (position % 4) {
                     case 0:
-                        return "Selection";
+                        return "";
                     case 1:
                         return "Actualités";
                     case 2:
