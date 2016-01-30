@@ -9,6 +9,5 @@ import com.hmm.viewmodels.Feed;
  */
 public interface IFeedView {
 
-    void initializeWithFeed(Feed feed);
     View getView();
 }
