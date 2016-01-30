@@ -38,8 +38,8 @@ public class HomeActivity extends Activity {
 
 
         ArrayList<Feed> arrayOfFeeds = new ArrayList<Feed>();
-        arrayOfFeeds.add(new TextFeed("1", "JJ", "JJContent"));
-        arrayOfFeeds.add(new TextFeed("2", "JJ2", "JJContent2"));
+        arrayOfFeeds.add(new TextFeed("1", "JJ3", "JJContent"));
+        arrayOfFeeds.add(new TextFeed("2", "JJ4", "JJContent2"));
         FeedViewListAdapter myAdapter=new
                 FeedViewListAdapter(
                 this,
