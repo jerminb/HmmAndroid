@@ -13,18 +13,4 @@
     fab:fab_addButtonSize="normal"
     fab:fab_labelsPosition="right">
 
-    <com.getbase.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        fab:fab_colorNormal="#f7883c"
-        fab:fab_colorPressed="#f16b34"
-        fab:fab_title="Label on the right"/>
-
-    <com.getbase.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        fab:fab_colorNormal="#f7883c"
-        fab:fab_colorPressed="#f16b34"
-        fab:fab_title="Another one on the right"/>
-
 </com.getbase.floatingactionbutton.FloatingActionsMenu>

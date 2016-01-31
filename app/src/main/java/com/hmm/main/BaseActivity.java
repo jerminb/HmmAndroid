@@ -13,7 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.hmm.R;
+import com.hmm.enums.FabEnum;
 import com.hmm.enums.MenuEnum;
 import com.hmm.support.SlideMenuItem;
 
@@ -32,6 +34,8 @@ public class BaseActivity extends AppCompatActivity implements ViewAnimator.View
     protected FrameLayout viewContainer;
     protected RelativeLayout mainContainer;
     protected MenuEnum currentMenu;
+    protected FloatingActionsMenu fabMenu;
+    protected View.OnClickListener fabListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +68,26 @@ public class BaseActivity extends AppCompatActivity implements ViewAnimator.View
 
     }
 
-    protected View initFab() {
-        return View.inflate(getApplicationContext(), R.layout.widgets_fab, null);
+    protected void initFab() {
+        fabMenu = (FloatingActionsMenu)findViewById(R.id.fab);
+        fabMenu.setVisibility(View.VISIBLE);
+        /*fabListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String tag = v.getTag().toString();
+                Intent intent = null;
+                switch(tag) {
+                    case FabEnum.ADD_COOP: ;break;
+                    case FabEnum.ADD_CAMPAIGN: ;break;
+                }
+                if(intent != null) {
+                    BaseActivity.this.startActivity(intent);
+                }
+            }
+        };*/
+
     }
+
     private void createMenuList() {
         SlideMenuItem menuItem0 = new SlideMenuItem(MenuEnum.CLOSE, R.drawable.icn_close);
         list.add(menuItem0);

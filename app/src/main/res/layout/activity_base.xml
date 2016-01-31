@@ -33,28 +33,15 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            fab:fab_addButtonColorNormal="#f06b34"
-            fab:fab_addButtonColorPressed="#e44c2a"
             android:visibility="gone"
+            fab:fab_addButtonColorNormal="@color/fab_normal"
+            fab:fab_addButtonColorPressed="@color/fab_pressed"
             fab:fab_addButtonPlusIconColor="@android:color/white"
             fab:fab_addButtonSize="normal"
             fab:fab_labelsPosition="right">
 
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                fab:fab_colorNormal="#f7883c"
-                fab:fab_colorPressed="#f16b34"
-                fab:fab_title="Label on the right"/>
-
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                fab:fab_colorNormal="#f7883c"
-                fab:fab_colorPressed="#f16b34"
-                fab:fab_title="Another one on the right"/>
-
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
     </RelativeLayout>
 
     <ScrollView
