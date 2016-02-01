@@ -53,7 +53,7 @@ public class ServiceUser extends ServiceEntity {
     }
 
     @Override
-    public void postAMission(Mission mission) {
+    public void _post(Mission mission) {
         userRemoteService.postMission(mission, new ICallBack<Mission>() {
             @Override
             public void onFailure(Throwable throwable) {

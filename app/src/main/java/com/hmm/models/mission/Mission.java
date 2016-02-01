@@ -5,6 +5,8 @@ import com.hmm.models.location.Location;
 import com.hmm.models.media.Media;
 import com.hmm.models.service_entities.ServiceEntity;
 import com.hmm.models.tags.Tag;
+import com.hmm.utils.validation.ValidationResult;
+import com.hmm.utils.validation.ValidationResultType;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,6 +16,7 @@ import java.util.Date;
  */
 public abstract class Mission extends BaseHmmModel {
     protected Media media;
+    protected String title;
     protected String description;
     protected Location location;
     protected ArrayList<Tag> tags;
@@ -86,6 +89,14 @@ public abstract class Mission extends BaseHmmModel {
         this.actualCompletionDate = actualCompletionDate;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public ServiceEntity getServiceConsumer() {
         return serviceConsumer;
     }
@@ -100,5 +111,19 @@ public abstract class Mission extends BaseHmmModel {
 
     public ArrayList<Contract> getContracts() {
         return contracts;
+    }
+
+    public ValidationResult validate(){
+        ValidationResult validationResult = new ValidationResult(ValidationResultType.VALIDATIONSUCCESSFUL);
+        /*if(this.getTags() == null || this.getTags().size() == 0){
+            validationResult.setType(ValidationResultType.VALIDATIONFAILED);
+            validationResult.getValidationErrors().add("Tags are empty");
+        }
+        else if(this.getTitle() == null || this.getTitle().isEmpty()){
+            validationResult.setType(ValidationResultType.VALIDATIONFAILED);
+            validationResult.getValidationErrors().add("Title is empty");
+
+        }*/
+        return validationResult;
     }
 }
