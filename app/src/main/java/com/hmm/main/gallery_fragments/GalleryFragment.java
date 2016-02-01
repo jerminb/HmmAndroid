@@ -138,7 +138,7 @@ public class GalleryFragment extends Fragment implements View.OnTouchListener {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        
+
         void onFragmentInteraction(Uri uri);
     }
 }
