@@ -1,6 +1,7 @@
 package com.hmm.main;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,6 +30,8 @@ import java.util.ArrayList;
 
 public class HomeActivity extends BaseActivity {
 
+    private static final String FAB_ACTION_ADD_MISSION = "add_mission";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,11 +49,28 @@ public class HomeActivity extends BaseActivity {
 
     private void addFab() {
         initFab();
-        FloatingActionButton fabAddCampaign = new FloatingActionButton(getApplicationContext());
+        View.OnClickListener fabListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String tag = v.getTag().toString();
+                Intent intent = null;
+                switch(tag) {
+                    case FAB_ACTION_ADD_MISSION: intent = new Intent(HomeActivity.this, NewMissionActivity.class);
+                }
+
+                if(intent != null) {
+                    HomeActivity.this.startActivity(intent);
+                }
+                fabMenu.collapse();
+            }
+        };
+        FloatingActionButton fabAddMission = new FloatingActionButton(getApplicationContext());
         //fabAddCampaign.setIcon(R.drawable.ic_search_white_24dp);
-        fabAddCampaign.setColorNormal(ContextCompat.getColor(getBaseContext(), R.color.fab_normal));
+        fabAddMission.setColorNormal(ContextCompat.getColor(getBaseContext(), R.color.fab_normal));
+        fabAddMission.setTag(FAB_ACTION_ADD_MISSION);
+        fabAddMission.setOnClickListener(fabListener);
         //fabAddCampaign.setOnClickListener(fabListener);
-        fabMenu.addButton(fabAddCampaign);
+        fabMenu.addButton(fabAddMission);
 
     }
     private void populateList() {

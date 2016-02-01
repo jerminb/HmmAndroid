@@ -7,4 +7,9 @@
     <color name="fab_normal">#009788</color>
     <color name="fab_pressed">#008577</color>
     <color name="fab_icon">#ffffff</color>
+
+    <color name="menu_drawer_background">#33334c</color>
+
+    <color name="button_post">#009788</color>
+    <color name="button_post_text">@android:color/white</color>
 </resources>

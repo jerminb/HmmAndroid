@@ -21,7 +21,12 @@
         <activity android:name=".main.LoginActivity" />
         <activity android:name=".main.HomeActivity" />
         <activity android:name=".main.BaseActivity" />
-        <activity android:name=".main.FeedActivity" android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".main.FeedActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".main.NewMissionActivity"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

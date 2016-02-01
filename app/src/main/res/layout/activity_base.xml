@@ -47,14 +47,15 @@
     <ScrollView
         android:id="@+id/scrollView"
         android:scrollbarThumbVertical="@android:color/transparent"
-        android:layout_width="80dp"
+        android:layout_width="@dimen/menu_drawer_width"
         android:layout_height="match_parent"
-        android:layout_gravity="start|bottom">
+        android:layout_gravity="start|bottom"
+        android:background="@color/menu_drawer_background">
 
         <LinearLayout
             android:id="@+id/left_drawer"
             android:orientation="vertical"
-            android:layout_width="80dp"
+            android:layout_width="@dimen/menu_drawer_width"
             android:layout_height="wrap_content"
             android:divider="@android:color/transparent"
             android:dividerHeight="0dp"
