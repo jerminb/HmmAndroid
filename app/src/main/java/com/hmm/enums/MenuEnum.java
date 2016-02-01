@@ -7,7 +7,7 @@ public enum MenuEnum {
     CLOSE,
     HOME,
     PROFILE,
-    MENU1,
+    FEED,
     MENU2,
     MENU3,
     MENU4

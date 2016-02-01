@@ -8,6 +8,8 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 
+import com.hmm.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +22,7 @@ import yalantis.com.sidemenu.animation.FlipAnimation;
  * Created by arash on 1/30/16.
  */
 public class ViewAnimator<T extends Resourceble> {
-    private final int ANIMATION_DURATION = 175;
+    private final int ANIMATION_DURATION = 80;
     public static final int CIRCULAR_REVEAL_ANIMATION_DURATION = 500;
 
     private AppCompatActivity actionBarActivity;
@@ -47,7 +49,7 @@ public class ViewAnimator<T extends Resourceble> {
         viewList.clear();
         double size = list.size();
         for (int i = 0; i < size; i++) {
-            View viewMenu = actionBarActivity.getLayoutInflater().inflate(yalantis.com.sidemenu.R.layout.menu_list_item, null);
+            View viewMenu = actionBarActivity.getLayoutInflater().inflate(R.layout.menu_list_item, null);
             final int finalI = i;
             viewMenu.setOnClickListener(new View.OnClickListener() {
                 @Override

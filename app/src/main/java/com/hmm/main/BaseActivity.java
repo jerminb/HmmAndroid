@@ -12,10 +12,8 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.hmm.R;
-import com.hmm.enums.FabEnum;
 import com.hmm.enums.MenuEnum;
 import com.hmm.support.SlideMenuItem;
 
@@ -35,7 +33,7 @@ public class BaseActivity extends AppCompatActivity implements ViewAnimator.View
     protected RelativeLayout mainContainer;
     protected MenuEnum currentMenu;
     protected FloatingActionsMenu fabMenu;
-    protected View.OnClickListener fabListener;
+    protected Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +43,7 @@ public class BaseActivity extends AppCompatActivity implements ViewAnimator.View
 
         viewContainer = (FrameLayout) findViewById(R.id.view_container);
         mainContainer = (RelativeLayout) findViewById(R.id.main_container);
-
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerLayout.setScrimColor(Color.TRANSPARENT);
         linearLayout = (LinearLayout) findViewById(R.id.left_drawer);
@@ -71,21 +69,6 @@ public class BaseActivity extends AppCompatActivity implements ViewAnimator.View
     protected void initFab() {
         fabMenu = (FloatingActionsMenu)findViewById(R.id.fab);
         fabMenu.setVisibility(View.VISIBLE);
-        /*fabListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String tag = v.getTag().toString();
-                Intent intent = null;
-                switch(tag) {
-                    case FabEnum.ADD_COOP: ;break;
-                    case FabEnum.ADD_CAMPAIGN: ;break;
-                }
-                if(intent != null) {
-                    BaseActivity.this.startActivity(intent);
-                }
-            }
-        };*/
-
     }
 
     private void createMenuList() {
@@ -93,7 +76,7 @@ public class BaseActivity extends AppCompatActivity implements ViewAnimator.View
         list.add(menuItem0);
         SlideMenuItem menuItem = new SlideMenuItem(MenuEnum.HOME, R.drawable.icn_1);
         list.add(menuItem);
-        SlideMenuItem menuItem2 = new SlideMenuItem(MenuEnum.MENU1, R.drawable.icn_2);
+        SlideMenuItem menuItem2 = new SlideMenuItem(MenuEnum.FEED, R.drawable.icn_2);
         list.add(menuItem2);
         SlideMenuItem menuItem3 = new SlideMenuItem(MenuEnum.MENU2, R.drawable.icn_3);
         list.add(menuItem3);
@@ -166,7 +149,7 @@ public class BaseActivity extends AppCompatActivity implements ViewAnimator.View
         {
             switch(selectedMenu)
             {
-                case HOME: intent = new Intent(this, HomeActivity.class);
+                case FEED: intent = new Intent(this, FeedActivity.class);
 
             }
         }
