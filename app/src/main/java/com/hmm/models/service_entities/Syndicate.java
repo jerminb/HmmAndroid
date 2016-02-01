@@ -49,7 +49,7 @@ public class Syndicate extends ServiceEntity {
     }
 
     @Override
-    public void postAMission(Mission mission) {
+    public void _post(Mission mission) {
 
     }
 

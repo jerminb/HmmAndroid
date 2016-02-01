@@ -47,7 +47,7 @@ public class HomeActivity extends BaseActivity {
     private void addFab() {
         initFab();
         FloatingActionButton fabAddCampaign = new FloatingActionButton(getApplicationContext());
-        fabAddCampaign.setIcon(R.drawable.ic_search_white_24dp);
+        //fabAddCampaign.setIcon(R.drawable.ic_search_white_24dp);
         fabAddCampaign.setColorNormal(ContextCompat.getColor(getBaseContext(), R.color.fab_normal));
         //fabAddCampaign.setOnClickListener(fabListener);
         fabMenu.addButton(fabAddCampaign);
