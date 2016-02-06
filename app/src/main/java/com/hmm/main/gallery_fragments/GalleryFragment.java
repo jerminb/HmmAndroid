@@ -1,17 +1,32 @@
 package com.hmm.main.gallery_fragments;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.Transformation;
+import android.view.animation.TranslateAnimation;
+import android.widget.AdapterView;
+import android.widget.FrameLayout;
+import android.widget.GridView;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ScrollView;
 
 import com.hmm.R;
+import com.hmm.main.gallery_adapters.ImageAdapter;
+import com.hmm.services.ImageProviderService;
+import com.hmm.utils.Utils;
+import com.hmm.viewmodels.ImagePath;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,13 +36,18 @@ import com.hmm.R;
  * Use the {@link GalleryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class GalleryFragment extends Fragment implements View.OnTouchListener {
+public class GalleryFragment extends Fragment implements View.OnTouchListener, IGalleryFragmentHandler {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private float startY = 0f;
+    private float pointsDragged = 0f;
     private static final float POINTS_TO_DETACH = 300;
+    private View ownView;
+    private GridView gridView;
+    private ImageAdapter ia;
+    private List<ImagePath> selectedImages;
 
     private String mParam1;
     private String mParam2;
@@ -62,6 +82,8 @@ public class GalleryFragment extends Fragment implements View.OnTouchListener {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            selectedImages = new ArrayList<ImagePath>();
+            ia = new ImageAdapter(getActivity().getBaseContext());
         }
     }
 
@@ -70,10 +92,40 @@ public class GalleryFragment extends Fragment implements View.OnTouchListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_gallery, container, false);
-        v.setOnTouchListener(this);
+        ownView = v;
+        gridView = (GridView)v.findViewById(R.id.gallery_image_gridview);
+        initGridView();
         return v;
     }
 
+    private void initGridView() {
+        gridView.setAdapter(ia);
+        AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {;
+                ImagePath item = (ImagePath)gridView.getItemAtPosition(position);
+                if(item != null) {
+                    View v = view.findViewById(R.id.image_item_overlay);
+                    if(item.isSelected()) {
+                        v.setVisibility(View.INVISIBLE);
+                    }
+                    else {
+                        v.setVisibility(View.VISIBLE);
+                    }
+                    item.setIsSelected(!item.isSelected());
+                }
+            }
+        };
+        gridView.setOnItemClickListener(listener);
+        initImages();
+    }
+
+    private void initImages() {
+        ImageProviderService ips = new ImageProviderService(getActivity().getBaseContext());
+        List<ImagePath> list = ips.getAllThumbnails();
+        Collections.reverse(list);
+        ia.SetImagePathList(list);
+    }
 
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -100,31 +152,48 @@ public class GalleryFragment extends Fragment implements View.OnTouchListener {
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        final int action = event.getAction();
-        final float newY = event.getY();
-        switch(action) {
-            case MotionEvent.ACTION_MOVE:
-            {
-                if(newY - startY >= POINTS_TO_DETACH) {
-                    Activity activity = getActivity();
-                    if(activity != null) {
-                        activity.getFragmentManager().popBackStack();
-                    }
-                }
-            };break;
+        final float Y = event.getRawY();
+        switch(event.getAction()) {
             case MotionEvent.ACTION_DOWN:
             {
-                startY = newY;
+                startY = Y;
             };break;
-            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_MOVE:
             {
-                startY = 0;
+                if(Y > startY) {
+                    pointsDragged = Y - startY;
+                    FrameLayout.LayoutParams lparams = (FrameLayout.LayoutParams) ownView.getLayoutParams();
+                    lparams.topMargin = (int) (Y - startY);
+                    ownView.setLayoutParams(lparams);
+                }
             };break;
+            case MotionEvent.ACTION_UP:{
+                if(pointsDragged >= POINTS_TO_DETACH) {
+                    getActivity().getFragmentManager().popBackStack();
+                }
+                else {
+                    Animation anim = new Animation() {
+                        @Override
+                        protected void applyTransformation(float interpolatedTime, Transformation t) {
+                            FrameLayout.LayoutParams lparams = (FrameLayout.LayoutParams) ownView.getLayoutParams();
+                            lparams.topMargin = (int)-pointsDragged;
+                            ownView.setLayoutParams(lparams);
+                        }
+                    };
+                    anim.setInterpolator(getActivity().getBaseContext(), android.R.anim.cycle_interpolator);
+                    anim.setDuration(900);
+                    ownView.startAnimation(anim);
+                }
+                startY = 0f;
+                pointsDragged = 0f;
+            }
         }
-
-
-
         return true;
+    }
+
+    @Override
+    public void imageSelectionFinished(List<ImagePath> selectedImages) {
+
     }
 
     /**

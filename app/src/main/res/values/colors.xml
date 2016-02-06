@@ -12,4 +12,6 @@
 
     <color name="button_post">#009788</color>
     <color name="button_post_text">@android:color/white</color>
+
+    <color name="image_overlay">#009788</color>
 </resources>

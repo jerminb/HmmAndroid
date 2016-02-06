@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_red_dark">
+    android:background="@android:color/black">
 
     <LinearLayout
+        android:id="@+id/gallery_top_control"
         android:layout_width="match_parent"
         android:layout_alignParentTop="true"
         android:layout_height="@dimen/toolbar_height"
@@ -34,5 +35,17 @@
             android:src="@drawable/ic_collections_black_36dp"/>
 
     </LinearLayout>
+
+    <GridView
+        android:id="@+id/gallery_image_gridview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/toolbar_height"
+        android:numColumns="3"
+        android:horizontalSpacing="0dp"
+        android:verticalSpacing="0dp"
+        android:layout_below="@id/gallery_top_control">
+
+    </GridView>
 
 </com.hmm.widgets.SlidingRelativeLayout>

@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 
 import com.hmm.R;
 import com.hmm.main.gallery_fragments.GalleryFragment;
+import com.hmm.services.ImageProviderService;
 
 public class NewMissionActivity extends AppCompatActivity {
 
@@ -42,23 +43,6 @@ public class NewMissionActivity extends AppCompatActivity {
                 return true;
             }
         });
-        Button test = (Button)findViewById(R.id.new_mission_post);
-        test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                descriptionEditText.requestFocus();
-                registerForContextMenu(descriptionEditText);
-                openContextMenu(descriptionEditText);
-            }
-        });
-//        test.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                descriptionEditText.showContextMenu();
-//                return true;
-//            }
-//        });
     }
     private void initBottomActions() {
 
@@ -112,5 +96,21 @@ public class NewMissionActivity extends AppCompatActivity {
         else {
             super.onBackPressed();
         }
+    }
+
+    public void onCameraClicked(View v) {
+
+    }
+
+    public void onVideoClicked(View v) {
+
+    }
+
+    public void onGalleryClicked(View v) {
+
+    }
+
+    public void onPostClicked(View v) {
+
     }
 }
