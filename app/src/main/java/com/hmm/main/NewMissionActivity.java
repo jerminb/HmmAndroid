@@ -3,10 +3,12 @@ package com.hmm.main;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -15,9 +17,14 @@ import android.widget.LinearLayout;
 
 import com.hmm.R;
 import com.hmm.main.gallery_fragments.GalleryFragment;
+import com.hmm.main.gallery_fragments.IGalleryFragmentHandler;
 import com.hmm.services.ImageProviderService;
+import com.hmm.utils.Utils;
+import com.hmm.viewmodels.ImagePath;
 
-public class NewMissionActivity extends AppCompatActivity {
+import java.util.List;
+
+public class NewMissionActivity extends AppCompatActivity implements IGalleryFragmentHandler{
 
     private EditText descriptionEditText;
     private Fragment currentFragment;
@@ -62,6 +69,7 @@ public class NewMissionActivity extends AppCompatActivity {
                 transaction.add(R.id.new_mission_fragment_container, galleryFragment);
                 currentFragment = galleryFragment;
                 transaction.commit();
+                Utils.hideKeyboard(NewMissionActivity.this);
             }
         });
     }
@@ -112,5 +120,10 @@ public class NewMissionActivity extends AppCompatActivity {
 
     public void onPostClicked(View v) {
 
+    }
+
+    @Override
+    public void imageSelectionFinished(List<ImagePath> selectedImages) {
+        getFragmentManager().popBackStack();
     }
 }

@@ -3,13 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black">
+    android:background="@android:color/white">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/gallery_top_control"
         android:layout_width="match_parent"
-        android:layout_alignParentTop="true"
         android:layout_height="@dimen/toolbar_height"
+        android:layout_alignParentTop="true">
+
+        <com.hmm.widgets.CustomButton
+            android:id="@+id/gallery_control_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/image_gallery_control_cancel"
+            android:layout_alignParentLeft="true"/>
+
+        <com.hmm.widgets.CustomButton
+            android:id="@+id/gallery_control_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/image_gallery_control_done"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/gallery_top_menu"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:layout_below="@id/gallery_top_control"
         android:orientation="horizontal"
         android:weightSum="1.0">
 
@@ -40,11 +61,10 @@
         android:id="@+id/gallery_image_gridview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/toolbar_height"
         android:numColumns="3"
         android:horizontalSpacing="0dp"
         android:verticalSpacing="0dp"
-        android:layout_below="@id/gallery_top_control">
+        android:layout_below="@id/gallery_top_menu">
 
     </GridView>
 

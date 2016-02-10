@@ -1,5 +1,6 @@
 package com.hmm.main.gallery_fragments;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
@@ -23,9 +24,11 @@ import com.hmm.main.gallery_adapters.ImageAdapter;
 import com.hmm.services.ImageProviderService;
 import com.hmm.utils.Utils;
 import com.hmm.viewmodels.ImagePath;
+import com.hmm.widgets.CustomButton;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -36,7 +39,7 @@ import java.util.List;
  * Use the {@link GalleryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class GalleryFragment extends Fragment implements View.OnTouchListener, IGalleryFragmentHandler {
+public class GalleryFragment extends Fragment implements View.OnTouchListener {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -48,6 +51,7 @@ public class GalleryFragment extends Fragment implements View.OnTouchListener, I
     private GridView gridView;
     private ImageAdapter ia;
     private List<ImagePath> selectedImages;
+    private IGalleryFragmentHandler galleryFragmentHandler;
 
     private String mParam1;
     private String mParam2;
@@ -95,6 +99,7 @@ public class GalleryFragment extends Fragment implements View.OnTouchListener, I
         ownView = v;
         gridView = (GridView)v.findViewById(R.id.gallery_image_gridview);
         initGridView();
+        addControlEventListeners();
         return v;
     }
 
@@ -108,9 +113,11 @@ public class GalleryFragment extends Fragment implements View.OnTouchListener, I
                     View v = view.findViewById(R.id.image_item_overlay);
                     if(item.isSelected()) {
                         v.setVisibility(View.INVISIBLE);
+                        removeImageFromList(item.getmOriginalId());
                     }
                     else {
                         v.setVisibility(View.VISIBLE);
+                        selectedImages.add(item);
                     }
                     item.setIsSelected(!item.isSelected());
                 }
@@ -133,14 +140,14 @@ public class GalleryFragment extends Fragment implements View.OnTouchListener, I
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            galleryFragmentHandler = (IGalleryFragmentHandler) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement IGalleryFragmentHandler");
         }
     }
 
@@ -191,11 +198,6 @@ public class GalleryFragment extends Fragment implements View.OnTouchListener, I
         return true;
     }
 
-    @Override
-    public void imageSelectionFinished(List<ImagePath> selectedImages) {
-
-    }
-
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -209,5 +211,32 @@ public class GalleryFragment extends Fragment implements View.OnTouchListener, I
     public interface OnFragmentInteractionListener {
 
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void addControlEventListeners() {
+        CustomButton cancelButton = (CustomButton) ownView.findViewById(R.id.gallery_control_cancel);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedImages.clear();
+                getActivity().getFragmentManager().popBackStack();
+            }
+        });
+        CustomButton doneButton = (CustomButton) ownView.findViewById(R.id.gallery_control_done);
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                galleryFragmentHandler.imageSelectionFinished(selectedImages);
+            }
+        });
+    }
+    private void removeImageFromList(long imageId) {
+        for(Iterator<ImagePath> iterator = selectedImages.iterator();iterator.hasNext();) {
+            ImagePath item = iterator.next();
+            if(item.getmOriginalId() == imageId) {
+                iterator.remove();
+                break;
+            }
+        }
     }
 }
